@@ -1,0 +1,17 @@
+﻿@model List<ElectronicStore.Areas.Admin.Models.ThuongHieu>
+
+
+<div class="w3ls_mobiles_grid_left_grid_sub">
+    <div class="ecommerce_color ecommerce_size">
+        <ul>
+        @foreach (var item in Model)
+        {
+            <li><a href="/san-pham/@item.MetaTitle">@item.tenThuongHieu</a></li>
+
+        }
+
+        </ul>
+    </div>
+    <ul>
+</div> 
+

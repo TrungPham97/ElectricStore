@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ElectronicStore.Areas.Admin.Models.KhachHang>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="title-5 m-b-35">Danh sách người dùng</h3>
+<div class="table-data__tool">
+    <div class="table-data__tool-right">
+        <a href="~/Admin/KhachHang/Create" class="button au-btn au-btn-icon au-btn--green au-btn--small" id="modal">
+            <i class="zmdi zmdi-plus"></i>add user
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive table-responsive-data2">
+    <table class="table table-data2">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.hoTen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.eMail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.diaChi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.soDienThoai)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.passWord)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr class="tr-shadow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hoTen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.eMail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.diaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.soDienThoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.passWord)
+                    </td>
+                    <td>
+                        <div class="table-data-feature">
+                            <a href="/Admin/KhachHang/Send" class="button item" data-toggle="tooltip" data-placement="top" title="Send">
+                                <i class="zmdi zmdi-mail-send"></i>
+                            </a>
+                            <a href="/Admin/KhachHang/Edit/@item.khachHangID" class="button item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i class="zmdi zmdi-edit"></i>
+                            </a>
+                            <a href="/Admin/KhachHang/Delete/@item.khachHangID" class="button item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <i class="zmdi zmdi-delete"></i>
+                            </a>
+                            <a href="/Admin/KhachHang/Details/@item.khachHangID" class="button item btnDetail" data-value="@item.khachHangID" data-toggle="tooltip" data-placement="top" title="Detail">
+                                <i class="zmdi zmdi-view-module"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div id="detailModal"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="~/Areas/Admin/Assets/vendor/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.btnDetail').click(function () {
+            var id = $(this).data("value")
+            $('#detailModal').load("/Admin/KhachHang/Details/" + id),
+                function () {
+                    $('#myModal').modal('show');
+                };
+        });
+    })
+</script>
+
