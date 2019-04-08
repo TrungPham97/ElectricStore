@@ -1918,6 +1918,12 @@
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHang\CreateOrEdit.cshtml" />
+<<<<<<< HEAD
+=======
+    <Content Include="Areas\Admin\Views\KhachHang\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\KhachHang\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\KhachHang\Edit.cshtml" />
+>>>>>>> master
     <Content Include="Areas\Admin\Views\KhachHang\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SanPham\Delete.cshtml" />
