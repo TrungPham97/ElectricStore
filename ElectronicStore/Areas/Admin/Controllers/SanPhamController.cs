@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -51,18 +52,44 @@ namespace ElectronicStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "sanPhamID,loaiHang,thuongHieu,tenSanPham,donGia,moTa,hinhAnh,nhieuHinhAnh,NgayTao,MetaTitle,Hot")] SanPham sanPham)
         {
+            sanPham.NgayTao = DateTime.Now;
             if (ModelState.IsValid)
             {
-                db.SanPhams.Add(sanPham);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                object[] sqlParams =
+                    {
+                    new SqlParameter("@loaiHang", sanPham.loaiHang),
+                    new SqlParameter("@thuongHieu", sanPham.thuongHieu),
+                    new SqlParameter("@tenSanPham", sanPham.tenSanPham),
+                    new SqlParameter("@donGia", sanPham.donGia),
+                    new SqlParameter("@moTa", sanPham.moTa),
+                    new SqlParameter("@hinhAnh", sanPham.hinhAnh),
+                    new SqlParameter("@nhieuHinhAnh", sanPham.nhieuHinhAnh),
+                    new SqlParameter("@NgayTao", sanPham.NgayTao),
+                    new SqlParameter("@MetaTitle", sanPham.MetaTitle),
+                    new SqlParameter("@Hot", sanPham.Hot),
+                    };
+                try
+                {
+                    var result = db.Database.ExecuteSqlCommand("sp_ThemSanPham @loaiHang,@thuongHieu,@tenSanPham,@donGia,@moTa,@hinhAnh,@nhieuHinhAnh,@NgayTao,@MetaTitle,@Hot", sqlParams);
 
+                    if (result > 0)
+                    {
+                        //SetAlert("Thêm thành công", "success");
+                        return RedirectToAction("Index");
+                    }
+
+                }
+                catch (SqlException ex)
+                {
+                   ModelState.AddModelError("", ex.Message);
+                }
+
+            }
             ViewBag.loaiHang = new SelectList(db.LoaiHangs, "loaiHangID", "tenLoai", sanPham.loaiHang);
             ViewBag.thuongHieu = new SelectList(db.ThuongHieux, "thuongHieuID", "tenThuongHieu", sanPham.thuongHieu);
             return View(sanPham);
         }
-
+       
         // GET: Admin/SanPham/Edit/5
         public ActionResult Edit(int? id)
         {

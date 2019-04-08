@@ -1,0 +1,40 @@
+﻿@model ElectronicStore.Areas.Admin.Models.KhachHang
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("CreateOrEdit", "KhachHang", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.khachHangID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.hoTen, new { @class = "control-label" })
+            @Html.EditorFor(model => model.hoTen, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.hoTen, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.passWord, new { @class = "control-label" })
+            @Html.EditorFor(model => model.passWord, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.passWord, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.soDienThoai, new { @class = "control-label" })
+            @Html.EditorFor(model => model.soDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.soDienThoai, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.eMail, new { @class = "control-label" })
+            @Html.EditorFor(model => model.eMail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.eMail, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.diaChi, new { @class = "control-label" })
+            @Html.EditorFor(model => model.diaChi, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.diaChi, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <input type="submit" value="submit" class="btn btn-success" />
+            <input type="reset" value="reset" class="btn btn-default" />
+        </div>
+
+ }
+
