@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -13,11 +14,21 @@ namespace ElectronicStore.Areas.Admin.Controllers
     public class KhachHangController : Controller
     {
         private TMDT db = new TMDT();
-
+        
         // GET: Admin/KhachHang
         public ActionResult Index()
         {
-            return View(db.KhachHangs.ToList());
+           
+            return View();
+        }
+        public ActionResult GetKhachHang()
+        {
+            using (TMDT db=new TMDT())
+            {
+
+                List<KhachHang> khlist = db.KhachHangs.Include(a=>a.HoaDons).ToList<KhachHang>();
+                return Json(new { data = khlist }, JsonRequestBehavior.AllowGet);
+            }
         }
         public ActionResult OpenModal()
         {
@@ -39,9 +50,18 @@ namespace ElectronicStore.Areas.Admin.Controllers
         }
 
         // GET: Admin/KhachHang/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult CreateOrEdit(int id=0)
         {
-            return View();
+            if (id == 0) { return View(new KhachHang()); }
+            else
+            {
+                using(TMDT db=new TMDT())
+                {
+                    return View(db.KhachHangs.Where(x => x.khachHangID == id).FirstOrDefault());
+                }
+            }
+
         }
 
         // POST: Admin/KhachHang/Create
@@ -49,74 +69,40 @@ namespace ElectronicStore.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "khachHangID,hoTen,eMail,diaChi,soDienThoai,passWord")] KhachHang khachHang)
+        public ActionResult CreateOrEdit(KhachHang kh)
         {
-            if (ModelState.IsValid)
+            
+            using(TMDT db=new TMDT())
             {
-                db.KhachHangs.Add(khachHang);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (kh.khachHangID == 0)
+                {
+                    db.KhachHangs.Add(kh);
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Save Successfully" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    db.Entry(kh).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Update Successfully" }, JsonRequestBehavior.AllowGet);
 
-            return View(khachHang);
+                }
+            }
         }
-
-        // GET: Admin/KhachHang/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
-
-        // POST: Admin/KhachHang/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "khachHangID,hoTen,eMail,diaChi,soDienThoai,passWord")] KhachHang khachHang)
+        public ActionResult Delete(int id)
         {
-            if (ModelState.IsValid)
+            using(TMDT db=new TMDT())
             {
-                db.Entry(khachHang).State = EntityState.Modified;
+                KhachHang kh = db.KhachHangs.Where(x => x.khachHangID == id).FirstOrDefault();
+                db.KhachHangs.Remove(kh);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Delete Successfully" }, JsonRequestBehavior.AllowGet);
+
             }
-            return View(khachHang);
         }
 
-        // GET: Admin/KhachHang/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
 
-        // POST: Admin/KhachHang/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            db.KhachHangs.Remove(khachHang);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

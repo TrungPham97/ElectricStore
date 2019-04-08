@@ -1,110 +1,144 @@
 ﻿@model IEnumerable<ElectronicStore.Areas.Admin.Models.KhachHang>
 
 @{
+
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h3 class="title-5 m-b-35">Danh sách người dùng</h3>
+@section Header{Danh sách người dùng}
+@section MenuHeader{Khách Hàng}
 <div class="table-data__tool">
     <div class="table-data__tool-right">
-        <a href="~/Admin/KhachHang/Create" class="button au-btn au-btn-icon au-btn--green au-btn--small" id="modal">
+        <a class="btn btn-success " onclick="PopupForm('@Url.Action("CreateOrEdit","KhachHang")')">
             <i class="zmdi zmdi-plus"></i>add user
         </a>
     </div>
 </div>
-
-<div class="table-responsive table-responsive-data2">
-    <table class="table table-data2">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.hoTen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.eMail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.diaChi)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.soDienThoai)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.passWord)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var item in Model)
-            {
-                <tr class="tr-shadow">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.hoTen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.eMail)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.diaChi)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.soDienThoai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.passWord)
-                    </td>
-                    <td>
-                        <div class="table-data-feature">
-                            <a href="/Admin/KhachHang/Send" class="button item" data-toggle="tooltip" data-placement="top" title="Send">
-                                <i class="zmdi zmdi-mail-send"></i>
-                            </a>
-                            <a href="/Admin/KhachHang/Edit/@item.khachHangID" class="button item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="zmdi zmdi-edit"></i>
-                            </a>
-                            <a href="/Admin/KhachHang/Delete/@item.khachHangID" class="button item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="zmdi zmdi-delete"></i>
-                            </a>
-                            <a href="/Admin/KhachHang/Details/@item.khachHangID" class="button item btnDetail" data-value="@item.khachHangID" data-toggle="tooltip" data-placement="top" title="Detail">
-                                <i class="zmdi zmdi-view-module"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <div id="detailModal"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách người dùng
     </div>
+    @*<div class="dt-buttons">   <button class="dt-button buttons-create" tabindex="0" aria-controls="example"><span>New</span></button> <button class="dt-button buttons-selected buttons-edit" tabindex="0" aria-controls="example"><span>Edit</span></button> <button class="dt-button buttons-selected buttons-remove" tabindex="0" aria-controls="example"><span>Delete</span></button> </div>*@
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" style="width:100%" id="khachHangTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            hoTen
+                        </th>
+                        <th>
+                            eMail
+                        </th>
+                        <th>
+                            diaChi
+                        </th>
+                        <th>
+                            soDienThoai
+                        </th>
+                        <th>
+                            passWord
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
-<script src="~/Areas/Admin/Assets/vendor/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    var Popup, dataTable;
     $(document).ready(function () {
-        $('.btnDetail').click(function () {
-            var id = $(this).data("value")
-            $('#detailModal').load("/Admin/KhachHang/Details/" + id),
-                function () {
-                    $('#myModal').modal('show');
-                };
+        dataTable = $('#khachHangTable').DataTable({
+            "ajax": {
+                "url": '/Admin/KhachHang/GetKhachHang',
+                "type": "GET",
+                "datatype": "json"
+            },
+
+            "columns": [
+                { "data": "hoTen", "autoWidth": true },
+                { "data": "eMail", "autoWidth": true },
+                { "data": "diaChi", "autoWidth": true },
+                { "data": "soDienThoai", "autoWidth": true },
+                { "data": "passWord", "autoWidth": true },
+                {
+                    "data": "khachHangID", "render": function (data) {
+                        return "<a class='btn btn-primary btn-sm' onclick=PopupForm('@Url.Action("CreateOrEdit", "KhachHang")/"+data+"')><i class='fa fa-pencil'></i>Edit</a> <a class='btn btn-danger btn-sm' style='margin-left:5px'onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>"
+                    },
+                    "örderable": false,
+                    "width":"150px"
+                }
+            ],
+            "language": {
+                "emptyTable": "Không tìm thấy dữ liệu! Vui lòng chọn <b>Thêm mới</b>"
+            }
         });
-    })
+    });
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Add Customer',
+                    height: 600,
+                    width: 700,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+                });
+            });
+    }
+    function SubmitForm(form) {
+        $.validator.unobtrusive.parse(form);
+        if ($(form).valid()) {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: $(form).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        console.log();
+                        Popup.dialog('close');
+                        dataTable.ajax.reload();
+                        $.notify(data.message, {
+                            globalPostion: "top-center",
+                            className: "success"
+                        })
+                    }
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+    function Delete(id) {
+        if (confirm('Bạn chắc chắn muốn xóa dữ liệu này? ')) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","KhachHang")/' + id,
+                success: function (data) {
+                    if (data.success) {
+                        dataTable.ajax.reload();
+                        $.notify(data.message, {
+                            globalPostion: "top-center",
+                            className: "error"
+                        })
+
+                    }
+                }
+            });
+        }
+    }
 </script>
+
 
