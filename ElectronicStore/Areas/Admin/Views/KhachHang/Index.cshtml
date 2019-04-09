@@ -51,7 +51,14 @@
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
+>>>>>>> master
 <script>
     var Popup, dataTable;
     $(document).ready(function () {
@@ -72,9 +79,20 @@
                     "data": "khachHangID", "render": function (data) {
                         return "<a class='btn btn-primary btn-sm' onclick=PopupForm('@Url.Action("CreateOrEdit", "KhachHang")/"+data+"')><i class='fa fa-pencil'></i>Edit</a> <a class='btn btn-danger btn-sm' style='margin-left:5px'onclick=Delete("+data+")><i class='fa fa-trash'></i> Delete</a>"
                     },
+<<<<<<< HEAD
                     "orderable": false,
                     "searchable": false,
                     "width": "150px"
+=======
+<<<<<<< HEAD
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "150px"
+=======
+                    "örderable": false,
+                    "width":"150px"
+>>>>>>> master
+>>>>>>> master
                 }
             ],
             "language": {
@@ -87,17 +105,37 @@
         $.get(url)
             .done(function (response) {
                 formDiv.html(response);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
 
                 Popup = formDiv.dialog({
                     autoOpen: true,
                     resizable: false,
                     title: 'Fill Employee Details',
+<<<<<<< HEAD
+=======
+=======
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Add Customer',
+>>>>>>> master
+>>>>>>> master
                     height: 600,
                     width: 700,
                     close: function () {
                         Popup.dialog('destroy').remove();
                     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
+>>>>>>> master
                 });
             });
     }
@@ -109,6 +147,10 @@
                 url: form.action,
                 data: $(form).serialize(),
                 success: function (data) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
                     if(data.success) {
                         Popup.dialog('close');
                         dataTable.ajax.reload();
@@ -123,6 +165,26 @@
             });
         }
             return false; 
+<<<<<<< HEAD
+=======
+=======
+                    if (data.success) {
+                        console.log();
+                        Popup.dialog('close');
+                        dataTable.ajax.reload();
+                        $.notify(data.message, {
+                            globalPostion: "top-center",
+                            className: "success"
+                        })
+                    }
+                }
+            });
+        }
+        else {
+            return false;
+        }
+>>>>>>> master
+>>>>>>> master
     }
     function Delete(id) {
         if (confirm('Bạn chắc chắn muốn xóa dữ liệu này? ')) {
@@ -133,7 +195,15 @@
                     if (data.success) {
                         dataTable.ajax.reload();
                         $.notify(data.message, {
+<<<<<<< HEAD
                             globalPosition: "top center",
+=======
+<<<<<<< HEAD
+                            globalPosition: "top center",
+=======
+                            globalPostion: "top-center",
+>>>>>>> master
+>>>>>>> master
                             className: "error"
                         })
 
