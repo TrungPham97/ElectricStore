@@ -4,8 +4,67 @@
     Layout = null;
 }
 
-
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Login</title>
+    <!-- Custom fonts for this template-->
+    <link href="~/Areas/Admin/Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="~/Areas/Admin/Assets/css/sb-admin.css" rel="stylesheet">
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <form>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                @Html.TextBoxFor(Model => Model.UserName, new { @class = "form-control", @autofocus = "autofocus" })
+                                <label for="inputEmail">Email address</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                @Html.PasswordFor(Model => Model.Password, new { @class = "form-control" })
+                                <label for="inputPassword">Password</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="remember-me">
+                                    Remember Password
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                    </form>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="register.html">Register an Account</a>
+                        <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Areas/Admin/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Areas/Admin/Assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+</html>
+@*<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags-->
@@ -18,19 +77,19 @@
     <title>Login</title>
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <!-- Bootstrap CSS-->
-    <link href="~/Areas/Admin/Assets/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-    <!-- Vendor CSS-->
-    <link href="~/Areas/Admin/Assets/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="~/Areas/Admin/Assets/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <!-- ~/Areas/Admin/Assets/vendor CSS-->
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
     <!-- Main CSS-->
     <link href="~/Areas/Admin/Assets/css/theme.css" rel="stylesheet" media="all">
 </head>
@@ -88,23 +147,23 @@
 
     </div>
     <!-- Jquery JS-->
-    <script src="~/Areas/Admin/Assets/vendor/jquery-3.2.1.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
-    <script src="~/Areas/Admin/Assets/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="~/Areas/Admin/Assets/vendor/slick/slick.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/wow/wow.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/animsition/animsition.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/counter-up/jquery.counterup.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="~/Areas/Admin/Assets/vendor/select2/select2.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- ~/Areas/Admin/Assets/vendor JS       -->
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/slick/slick.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/wow/wow.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/animsition/animsition.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/counter-up/jquery.counterup.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="~/Areas/Admin/Assets/~/Areas/Admin/Assets/vendor/select2/select2.min.js"></script>
     <!-- Main JS-->
     <script src="~/Areas/Admin/Assets/js/main.js"></script>
 </body>
-</html>
+</html>*@
 <!-- end document-->
