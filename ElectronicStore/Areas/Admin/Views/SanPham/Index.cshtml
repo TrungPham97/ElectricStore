@@ -5,121 +5,84 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Index</h2>
 
-<body>
-    <h3 class="title-5 m-b-35">Danh sách sản phẩm</h3>
-    <div class="table-data__tool">
-        <div class="table-data__tool-right">
-            <a href="~/Admin/SanPham/Create" class="button au-btn au-btn-icon au-btn--green au-btn--small" id="modal">
-                <i class="zmdi zmdi-plus"></i>Thêm mới
-            </a>
-        </div>
-    </div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiHang1.tenLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThuongHieu1.tenThuongHieu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tenSanPham)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.donGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.moTa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hinhAnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nhieuHinhAnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayTao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MetaTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hot)
+        </th>
+        <th></th>
+    </tr>
 
-    <div class="table-responsive table-responsive-data2">
-        <table class="table table-data2">
-            <thead>
-                <tr>
-                    <th style="width:20%">
-                        @Html.DisplayNameFor(model => model.ThuongHieu1.tenThuongHieu)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.tenSanPham)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.donGia)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.moTa)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.hinhAnh)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.NgayTao)
-                    </th>
-                    <th style="width:10%">
-                        @Html.DisplayNameFor(model => model.Hot)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiHang1.tenLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThuongHieu1.tenThuongHieu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tenSanPham)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.donGia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.moTa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hinhAnh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nhieuHinhAnh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayTao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetaTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hot)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.sanPhamID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.sanPhamID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.sanPhamID })
+        </td>
+    </tr>
+}
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ThuongHieu1.tenThuongHieu)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tenSanPham)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.donGia)
-                        </td>
-                        <td>
-                            @if (item.moTa.Length > 10)
-                            {
-                                <button class="btn" data-toggle="modal" data-target="#@item.sanPhamID">
-                                    @item.moTa.Substring(0, 5)
-                                </button>
-                                <div id="@item.sanPhamID" class="modal fade" role="dialog" data-backdrop="true">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Mô tả sản phẩm</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                @item.moTa
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(modelItem => item.moTa)
-                            }
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.hinhAnh)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NgayTao)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hot)
-                        </td>
-                        <td>
-                            <div class="table-data-feature">
-                                <a href="/Admin/SanPham/Send" class="button item" data-toggle="tooltip" data-placement="top" title="Send">
-                                    <i class="zmdi zmdi-mail-send"></i>
-                                </a>
-                                <a href="/Admin/SanPham/Edit/@item.sanPhamID" class="button item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="zmdi zmdi-edit"></i>
-                                </a>
-                                <a href="/Admin/SanPham/Delete/@item.sanPhamID" class="button item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                    <i class="zmdi zmdi-delete"></i>
-                                </a>
-                                <a href="/Admin/SanPham/Details/@item.sanPhamID" class="button item btnDetail" data-value="@item.sanPhamID" data-toggle="tooltip" data-placement="top" title="Detail">
-                                    <i class="zmdi zmdi-view-module"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-
-</body>
+</table>

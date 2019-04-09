@@ -1,55 +1,83 @@
 ﻿@model IEnumerable<ElectronicStore.Areas.Admin.Models.KhachHang>
 
 @{
-
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@section Header{Danh sách người dùng}
-@section MenuHeader{Khách Hàng}
+
+<h3 class="title-5 m-b-35">Danh sách người dùng</h3>
 <div class="table-data__tool">
     <div class="table-data__tool-right">
-        <a class="btn btn-success " onclick="PopupForm('@Url.Action("CreateOrEdit","KhachHang")')">
+        <a href="~/Admin/KhachHang/Create" class="button au-btn au-btn-icon au-btn--green au-btn--small" id="modal">
             <i class="zmdi zmdi-plus"></i>add user
         </a>
     </div>
 </div>
-<div class="card mb-3">
-    <div class="card-header">
-        <i class="fas fa-table"></i>
-        Danh sách người dùng
-    </div>
-    @*<div class="dt-buttons">   <button class="dt-button buttons-create" tabindex="0" aria-controls="example"><span>New</span></button> <button class="dt-button buttons-selected buttons-edit" tabindex="0" aria-controls="example"><span>Edit</span></button> <button class="dt-button buttons-selected buttons-remove" tabindex="0" aria-controls="example"><span>Delete</span></button> </div>*@
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" style="width:100%" id="khachHangTable" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>
-                            hoTen
-                        </th>
-                        <th>
-                            eMail
-                        </th>
-                        <th>
-                            diaChi
-                        </th>
-                        <th>
-                            soDienThoai
-                        </th>
-                        <th>
-                            passWord
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
 
-            </table>
-        </div>
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+<div class="table-responsive table-responsive-data2">
+    <table class="table table-data2">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.hoTen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.eMail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.diaChi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.soDienThoai)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.passWord)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr class="tr-shadow">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hoTen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.eMail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.diaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.soDienThoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.passWord)
+                    </td>
+                    <td>
+                        <div class="table-data-feature">
+                            <a href="/Admin/KhachHang/Send" class="button item" data-toggle="tooltip" data-placement="top" title="Send">
+                                <i class="zmdi zmdi-mail-send"></i>
+                            </a>
+                            <a href="/Admin/KhachHang/Edit/@item.khachHangID" class="button item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i class="zmdi zmdi-edit"></i>
+                            </a>
+                            <a href="/Admin/KhachHang/Delete/@item.khachHangID" class="button item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <i class="zmdi zmdi-delete"></i>
+                            </a>
+                            <a href="/Admin/KhachHang/Details/@item.khachHangID" class="button item btnDetail" data-value="@item.khachHangID" data-toggle="tooltip" data-placement="top" title="Detail">
+                                <i class="zmdi zmdi-view-module"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
 <<<<<<< HEAD
 
@@ -213,5 +241,4 @@
         }
     }
 </script>
-
 

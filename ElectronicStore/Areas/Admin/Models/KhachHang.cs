@@ -18,33 +18,28 @@
         public int khachHangID { get; set; }
 
         [StringLength(50)]
-        [Required(ErrorMessage ="Mời nhập họ tên")]
         [Display(Name ="Họ Tên")]
         public string hoTen { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Email")]
-        [EmailAddress(ErrorMessage ="Email không phù hợp")]
-        [Required(ErrorMessage = "Mời nhập email")]
+        [EmailAddress]
         public string eMail { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Địa chỉ")]
-        [Required(ErrorMessage = "Mời nhập địa chỉ")]
         public string diaChi { get; set; }
 
         [StringLength(11)]
         [Display(Name = "Số Điện Thoại")]
-        [Required(ErrorMessage = "Mời nhập số điện thoại")]
+        [Phone]
         public string soDienThoai { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Mật Khẩu")]
-        [Required(ErrorMessage = "Mời nhập mật khẩu")]
         public string passWord { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
-
     }
 }

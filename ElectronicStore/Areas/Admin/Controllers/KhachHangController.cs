@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -33,7 +32,7 @@ namespace ElectronicStore.Areas.Admin.Controllers
 >>>>>>> master
             return View();
         }
-        public ActionResult GetKhachHang()
+        public ActionResult OpenModal()
         {
 <<<<<<< HEAD
             using (TMDT db = new TMDT())
@@ -42,14 +41,15 @@ namespace ElectronicStore.Areas.Admin.Controllers
                 return Json(new { data = khlist }, JsonRequestBehavior.AllowGet);
             }
         }
-        [HttpGet]
-        public ActionResult CreateOrEdit(int id=0)
+        // GET: Admin/KhachHang/Details/5
+        public ActionResult Details(int? id)
         {
-            if (id == 0)
+            if (id == null)
             {
-                return View(new KhachHang());
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
             {
 =======
             using (TMDT db=new TMDT())
@@ -83,9 +83,15 @@ namespace ElectronicStore.Areas.Admin.Controllers
                     return View(db.KhachHangs.Where(x => x.khachHangID == id).FirstOrDefault());
                 }
             }
+            return PartialView(khachHang);
+        }
 
 <<<<<<< HEAD
         }
+
+        // POST: Admin/KhachHang/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
 =======
 <<<<<<< HEAD
@@ -113,8 +119,7 @@ namespace ElectronicStore.Areas.Admin.Controllers
 >>>>>>> master
         public ActionResult CreateOrEdit(KhachHang kh)
         {
-            
-            using(TMDT db=new TMDT())
+            if (ModelState.IsValid)
             {
                 if (kh.khachHangID == 0)
                 {
@@ -152,18 +157,43 @@ namespace ElectronicStore.Areas.Admin.Controllers
 >>>>>>> master
 >>>>>>> master
             }
-        }
-        [HttpPost]
-        public ActionResult Delete(int id)
-        {
-            using(TMDT db=new TMDT())
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
             {
-                KhachHang kh = db.KhachHangs.Where(x => x.khachHangID == id).FirstOrDefault();
-                db.KhachHangs.Remove(kh);
-                db.SaveChanges();
-                return Json(new { success = true, message = "Delete Successfully" }, JsonRequestBehavior.AllowGet);
-
+                return HttpNotFound();
             }
+            return View(khachHang);
+        }
+
+        // POST: Admin/KhachHang/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "khachHangID,hoTen,eMail,diaChi,soDienThoai,passWord")] KhachHang khachHang)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(khachHang).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(khachHang);
+        }
+
+        // GET: Admin/KhachHang/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
+            {
+                return HttpNotFound();
+            }
+            return View(khachHang);
         }
 
 <<<<<<< HEAD
